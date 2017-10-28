@@ -33,7 +33,7 @@ Condensate::Condensate(const Condensate& condensate){
 VectorXd laplacian(const Condensate& condensate){
     int n = condensate.phiA.size();
     VectorXd yout = VectorXd::Zero(n);
-    yout(0) = (2 * (condensate.phiA(1) - condensate.phiA(0)) / (condensate.dr * condensate.dr));
+    yout(0) = (4 * (condensate.phiA(1) - condensate.phiA(0)) / (condensate.dr * condensate.dr));
     yout.segment(1, n-2) = (condensate.phiA.segment(2, n-2) - condensate.phiA.segment(0, n-2)).cwiseQuotient(2 * condensate.dr * condensate.r.segment(1, n-2)) + (condensate.phiA.segment(2, n-2) + condensate.phiA.segment(0, n-2) - 2 * condensate.phiA.segment(1, n-2)) / (condensate.dr * condensate.dr);
     yout(n-1) = (condensate.phiA(n-2) - 2 * condensate.phiA(n-1)) / (condensate.dr * condensate.dr) - condensate.phiA(n-2) / (2 * condensate.dr);
     return yout;
